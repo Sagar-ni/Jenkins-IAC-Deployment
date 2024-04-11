@@ -4,7 +4,7 @@ pipeline {
    stages {
     stage ("cloning code from repo")
     steps {
-        checkout 
+       checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sagar-ni/Jenkins-IAC-Deployment.git']])
     }
    }  
    stage ("terraform initialization") {
