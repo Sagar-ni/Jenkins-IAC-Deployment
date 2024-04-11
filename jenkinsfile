@@ -1,28 +1,30 @@
 pipeline {
   agent any
 
-   stages {
-    stage ("cloning code from repo"){
-    steps {
-       checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sagar-ni/Jenkins-IAC-Deployment.git']])
-    }
-   }  
-   stage ("terraform initialization") {
-    steps{
+    stages {
+     stage ("cloning code from repo"){
+       steps {
+        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sagar-ni/Jenkins-IAC-Deployment.git']])
+       }
+     }  
+     stage ("terraform initialization") {
+      steps{
         sh ("terraform init -reconfigure")
-    }
-   }
-   stage ("plan") {
-    steps {
+      }
+     } 
+     stage ("plan") {
+      steps {
         sh ("terraform plan")
 
-    }
-   }
-   stage ("terraform Action"){
-    steps {
+       }
+     }
+      stage ("terraform Action"){
+       steps {
         echo "terraform action is --> ${action}"
         sh ("terraform ${action} --auto-approve")
-    }     
+       }     
+      }
    }
-}
-}
+ }
+
+ 
