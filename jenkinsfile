@@ -5,23 +5,24 @@ pipeline {
      stage ("cloning code from repo"){
        steps {
         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sagar-ni/Jenkins-IAC-Deployment.git']])
+        
        }
      }  
      stage ("terraform initialization") {
       steps{
-        sh ("terraform init -reconfigure")
+        sh ('terraform init -reconfigure')
       }
      } 
      stage ("plan") {
       steps {
-        sh ("terraform plan")
+        sh ('terraform plan')
 
        }
      }
       stage ("terraform Action"){
        steps {
         echo "terraform action is --> ${action}"
-        sh ("terraform ${action} --auto-approve")
+        sh ('terraform ${action} --auto-approve')
        }     
       }
    }
